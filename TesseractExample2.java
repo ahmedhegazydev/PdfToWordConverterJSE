@@ -6,13 +6,18 @@
 package javaapplication6;
 
 import com.lowagie.text.List;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.factories.ElementFactory;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.AbstractCollection;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,12 +28,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javaapplication6.StringAlignUtils.Alignment;
 import javax.imageio.ImageIO;
 import net.sourceforge.tess4j.ITesseract;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
+import org.apache.poi.POIXMLProperties.ExtendedProperties;
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.UnderlinePatterns;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -54,6 +62,7 @@ public class TesseractExample2 {
     private static File tessDataFolder;
 
     public static void main(String[] args) throws IOException, TesseractException {
+        String newline = System.getProperty("line.separator");
 
 //       System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
 //        File file = new File("C:\\Users\\user\\Downloads\\OCR.pdf");
@@ -73,59 +82,107 @@ public class TesseractExample2 {
 //        Rendering an image from the PDF document 
 
         int total = document.getNumberOfPages();
-
+        Paragraph para = new Paragraph();
         XWPFDocument doc = new XWPFDocument();
         FileOutputStream fileOutputStream = null;
         File f;
-        f = new File("E:\\NetbeansProjects\\JavaApplication6\\src\\files\\output3.docx");
+        f = new File("E:\\NetbeansProjects\\JavaApplication6\\src\\files\\output1.txt");
 //        f.deleteOnExit();
         try {
             fileOutputStream = new FileOutputStream(f);
+
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TesseractExample2.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        for (int i = 0; i < total; i++) {
+//        StringBuilder builder = new StringBuilder();
+        File file = new File("E:\\NetbeansProjects\\JavaApplication6\\src\\files\\text.txt");
+        // Create a File
+        file.createNewFile();
+        //  Creates a FileWriter Object using file object
+        FileWriter writer = new FileWriter(file);
+        StringAlignUtils util = new StringAlignUtils(50, Alignment.RIGHT);
+        for (int i = 0; i < 2; i++) {
 //            image = dFRenderer.renderImage(i);
 //            image = dFRenderer.renderImageWithDPI(i, dpi);
 //            ImageIO.write(image, "JPEG", new File(strMainPath + i + fileExt));
-            File imageFile = new File(strMainPath + i + fileExt);
-            String result = null;
-            try {
-                result = instance.doOCR(imageFile);
-            } catch (TesseractException ex) {
-                Logger.getLogger(TesseractExample2.class.getName()).log(Level.SEVERE, null, ex);
-            }
-//            imageFile.delete();
-            System.out.println(result);
-            XWPFParagraph paragraph2 = doc.createParagraph();
-            XWPFRun runText2 = paragraph2.createRun();
-            runText2.setFontSize(18);
-            runText2.setFontFamily("Calibri (Corps)");
-            runText2.setBold(true);
-            String res = "";
-            for (int j = 0; j < result.length(); j++) {
-               res +=   result.charAt(j) + '\u200e'; 
-//                System.out.println(result.charAt(j));
-            }
-            runText2.setText(res);
-            res = "";
-            runText2.setColor("003894");
-//            runText2.setAlignment(ParagraphAlignment.CENTER);
-            runText2.setUnderline(UnderlinePatterns.SINGLE);
-//            runText2.setSpacingAfter(300);
-            setOrientation(paragraph2, TextOrientation.RTL);
+//            File imageFile = new File(strMainPath + i + fileExt);
+//            String result = instance.doOCR(imageFile)
+//                    .replace("\n", newline);
+//
+////            result.replaceAll(System.getProperty("line.separator").toString(),"\t\t\t\t\t");
+//            System.out.println(util.format(result));
+////            para.setAlignment(Paragraph.ALIGN_RIGHT);
+////            imageFile.delete();
+////            System.out.println(result);
+////            builder.append(para.getContent());
+////            builder.append("/n");
+//            writer.write(util.format(result));
+//            para.clear();
+//            XWPFParagraph paragraph2 = doc.createParagraph();
+//            XWPFRun runText2 = paragraph2.createRun();
+//            runText2.setFontSize(18);
+//            runText2.setFontFamily("Calibri (Corps)");
+//            runText2.setBold(true);
+            //----------------------------
+//            String res = "";
+//            for (int j = 0; j < result.length(); j++) {
+//                res += result.charAt(j) + '\u200e';
+////                System.out.println(result.charAt(j));
+//            }
+//            StringBuilder input1 = new StringBuilder();
+            // append a string into StringBuilder input1 
+//            input1.append(result);
+            // reverse StringBuilder input1 
+//            input1 = input1.reverse();
+            //--------------------------
+//            String newline = System.getProperty("line.separator");
+//            boolean hasNewline = result.contains(newline);
+//            System.out.println(hasNewline);
+            //--------------------------
+//            runText2.setText(result);
+//            String[] lines = paragraph2.getParagraphText().split("\n");
+//            StringBuilder input1 = new StringBuilder();
+//            for (String line : lines) {         
+//               input1.append(line);
+//               input1.reverse();
+//               res += input1.toString() + newline;
+//                System.out.println(" ====================" + input1);
+//            }
 
-            paragraph2.setPageBreak(true);
+            //-------------------------
+//            runText2.setText(res);
+//            res = "";
+//            res = "";
+//            runText2.setColor("003894");
+//            runText2.setAlignment(ParagraphAlignment.CENTER);
+//            runText2.setUnderline(UnderlinePatterns.SINGLE);
+//            runText2.setSpacingAfter(300);
+//            setOrientation(paragraph2, TextOrientation.RTL);
+//            setOrientation(paragraph2, TextOrientation.LTR);
+//            paragraph2.setPageBreak(true);
 //--------------------------------------------
 //            System.out.println("Image created");
 //            new ThreadWriteImage(image, new File(strMainPath + i + fileExt), i).run();
         }
-        try {
-            doc.write(fileOutputStream);
-        } catch (IOException ex) {
-            Logger.getLogger(TesseractExample2.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        // Writes the content to the file
+//        writer.write("احمد عليوه ");
+        // Flush the memory and close the file
+        writer.flush();
+        writer.close();
+        // Creates a FileReader Object
+        FileReader reader = new FileReader(file);
+        char[] a = new char[100];
+        // Read file content in the array
+        reader.read(a);
+//        System.out.println(a);
+        // Close the file
+        reader.close();
+//        try {
+//            doc.write(fileOutputStream);
+//        } catch (IOException ex) {
+//            Logger.getLogger(TesseractExample2.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
 //        new ThreadSplittter(0, 3).run();
 //        new ThreadSplittter(3, 6).run();

@@ -26,7 +26,7 @@ public class TesseractExample3 {
     private static ITesseract instance = new Tesseract();
     private static File tessDataFolder;
     private static String fileExt = ".jpg";
-    private static File fileForExtraction = new File("E:\\NetbeansProjects\\JavaApplication6\\src\\files\\ddddddd.pdf");
+    private static File fileForExtraction = new File("E:\\NetbeansProjects\\JavaApplication6\\src\\files\\Beyond-Profile.pdf");
     private static PDFRenderer dFRenderer;
     private static PDDocument document;
 
@@ -61,7 +61,7 @@ public class TesseractExample3 {
         }
 
         StringAlignUtils util = new StringAlignUtils(50, Alignment.LEFT);
-        for (int i = 6; i < 8; i++) {
+        for (int i = 0; i < total; i++) {
             File imageFile = new File(strMainPath + i + fileExt);
             String result = instance.doOCR(imageFile)
                     .replace("\n", newline);

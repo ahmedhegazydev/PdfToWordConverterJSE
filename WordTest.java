@@ -24,11 +24,11 @@ public class WordTest {
     public static final String output_DOCX = "E:\\Temp5\\Word document output.docx";
 
     public static void main(String[] args) throws Exception {
-        WordprocessingMLPackage wordMLPackage = Docx4J.load(new File(input_DOCX));
-        FileInputStream xmlStream = new FileInputStream(new File(input_XML));
-        Docx4J.bind(wordMLPackage, xmlStream, Docx4J.FLAG_BIND_INSERT_XML | Docx4J.FLAG_BIND_BIND_XML | Docx4J.FLAG_BIND_REMOVE_SDT);
-        Docx4J.save(wordMLPackage, new File(output_DOCX), Docx4J.FLAG_NONE);
-        System.out.println("Saved: " + output_DOCX);
+//        WordprocessingMLPackage wordMLPackage = Docx4J.load(new File(input_DOCX));
+//        FileInputStream xmlStream = new FileInputStream(new File(input_XML));
+//        Docx4J.bind(wordMLPackage, xmlStream, Docx4J.FLAG_BIND_INSERT_XML | Docx4J.FLAG_BIND_BIND_XML | Docx4J.FLAG_BIND_REMOVE_SDT);
+//        Docx4J.save(wordMLPackage, new File(output_DOCX), Docx4J.FLAG_NONE);
+//        System.out.println("Saved: " + output_DOCX);
     }
 
 }
